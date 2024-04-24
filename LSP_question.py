@@ -1,8 +1,12 @@
-from abc import ABC,abstractmethod
+from abc import ABC, abstractmethod
+
+
 class Withdraw(ABC):
     @abstractmethod
-    def calculate_area(self):
+    def withdraw(self, amount):
         pass
+
+
 class SavingsAccount(Withdraw):
     def __init__(self, balance) -> None:
         self.balance = balance
@@ -16,10 +20,12 @@ class SavingsAccount(Withdraw):
         else:
             print("Insufficient funds!")
 
+
 class CheckingAccount(Withdraw):
     def __init__(self, balance, overdraft_limit):
         super().__init__(balance)
         self.overdraft_limit = overdraft_limit
+        self.balance = balance
 
     def withdraw(self, amount):
         # Checking account allows overdrafts but with a limit
@@ -29,10 +35,12 @@ class CheckingAccount(Withdraw):
         else:
             print("Exceeds overdraft limit or insufficient funds!")
 
+
 def perform_bank_actions(account):
     account.withdraw(100)
     account.withdraw(200)
     account.withdraw(500)
+
 
 if __name__ == "__main__":
     # Creating instances of SavingsAccount and CheckingAccount
